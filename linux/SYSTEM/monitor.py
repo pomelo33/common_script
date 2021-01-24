@@ -4,6 +4,18 @@ import psutil
 import datetime
 import os
 
+# 获取当前登录用户信息
+def User_info():
+    # 获取用户信息
+    # users = psutil.users()
+    # for user in users:
+    #     print("登录用户: {}".format(user.name) + " 登录IP信息: {}".format(user.host))
+    # 获取登录用户个数
+    users_count = len(psutil.users())
+    # 登录用户详情
+    users_list = ",".join(u.name for u in psutil.users())
+    print("当前有%s个用户，分别是:%s" % (users_count,users_list)) 
+
 # 获取系统启动时间
 def Uptime():
     Uptime = psutil.boot_time()
@@ -58,17 +70,13 @@ def Cpu_use():
     cpu_rate = psutil.cpu_percent()
     print("CPU个数: {}".format(cpu_logical_counts) + " CPU使用率: {}%".format(cpu_rate))
 
-# 获取当前登录用户信息
-def User_info():
-    # 获取用户信息
-    # users = psutil.users()
-    # for user in users:
-    #     print("登录用户: {}".format(user.name) + " 登录IP信息: {}".format(user.host))
-    # 获取登录用户个数
-    users_count = len(psutil.users())
-    # 登录用户详情
-    users_list = ",".join(u.name for u in psutil.users())
-    print("当前有%s个用户，分别是:%s" % (users_count,users_list)) 
+# 获取网卡流量信息
+def Net_info():
+    # 网卡发送流量
+    net_sent = (psutil.net_io_counters().bytes_sent)/1024/1024
+    # 网卡接收流量
+    net_recv = (psutil.net_io_counters().bytes_recv)/1024/1024
+    print("网卡发送流量: {0:.1f}M".format(net_sent) + "\n网卡接收流量: {0:.1f}M".format(net_recv))
 
 if __name__ == "__main__":
     Uptime()
@@ -76,3 +84,4 @@ if __name__ == "__main__":
     Disk_Use()
     Mem_Use()
     Cpu_use()
+    Net_info()
