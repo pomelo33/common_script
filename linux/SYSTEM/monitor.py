@@ -35,7 +35,8 @@ def Disk_Use():
             disk_free = (psutil.disk_usage(disk.mountpoint).free)/1024/1024/1024
             # disk使用率
             disk_rate = (disk_use / disk_total * 100)
-            print(disk.mountpoint + " 磁盘总空间: {:.2f}G".format(disk_total)  + " 磁盘空闲空间: {:.2f}G".format(disk_free) + " 使用率: {:.1f}%".format(disk_rate))
+            print(disk.mountpoint + " 磁盘总空间: {:.2f}G".format(disk_total) + " 磁盘空闲空间: {:.2f}G".format(disk_free)+\
+            " 使用率: {:.1f}%".format(disk_rate))
         except OSError as error:
             print(disk.device + "获取失败")
 
@@ -58,7 +59,8 @@ def Mem_Use():
     # 交换分区使用率
     swap_rate = (swap_use / swap_total * 100 )
 
-    print("总内存: {:.2f}G".format(mem_total) + " 空闲内存: {:.2f}G".format(mem_free) + " 内存使用率: {:.0f}%".format(mem_rate) + "\nswap总空间: {:.2f}G".format(swap_total) + " swap空闲空间: {:.2f}G".format(swap_free) + " swap使用率: {:.0f}%".format(swap_rate))
+    print("总内存: {:.2f}G".format(mem_total) + " 空闲内存: {:.2f}G".format(mem_free) + " 内存使用率: {:.0f}%".format(mem_rate)+\
+        "\nswap总空间: {:.2f}G".format(swap_total) + " swap空闲空间: {:.2f}G".format(swap_free) + " swap使用率: {:.0f}%".format(swap_rate))
 
 # 获取CPU信息
 def Cpu_use():
