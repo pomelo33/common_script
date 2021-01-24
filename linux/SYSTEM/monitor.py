@@ -4,6 +4,11 @@ import psutil
 import datetime
 import os
 
+# 获取系统启动时间
+def Uptime():
+    Uptime = psutil.boot_time()
+    print("系统启动时间: {}".format(datetime.datetime.fromtimestamp(Uptime).strftime("%Y-%m-%d %H:%M")))
+
 # 获取磁盘信息
 def Disk_Use():
     # 获取磁盘信息
@@ -18,7 +23,7 @@ def Disk_Use():
             disk_free = (psutil.disk_usage(disk.mountpoint).free)/1024/1024/1024
             # disk使用率
             disk_rate = (disk_use / disk_total * 100)
-            print(disk.mountpoint + " 磁盘总空间: {:.2f}GB".format(disk_total)  + " 磁盘空闲空间: {:.2f}GB".format(disk_free) + " 使用率: {:.1f}%".format(disk_rate))
+            print(disk.mountpoint + " 磁盘总空间: {:.2f}G".format(disk_total)  + " 磁盘空闲空间: {:.2f}G".format(disk_free) + " 使用率: {:.1f}%".format(disk_rate))
         except OSError as error:
             print(disk.device + "获取失败")
 
@@ -43,6 +48,31 @@ def Mem_Use():
 
     print("总内存: {:.2f}G".format(mem_total) + " 空闲内存: {:.2f}G".format(mem_free) + " 内存使用率: {:.0f}%".format(mem_rate) + "\nswap总空间: {:.2f}G".format(swap_total) + " swap空闲空间: {:.2f}G".format(swap_free) + " swap使用率: {:.0f}%".format(swap_rate))
 
+# 获取CPU信息
+def Cpu_use():
+    # 获取CPU逻辑格式,默认方法是 logical=True
+    cpu_logical_counts = psutil.cpu_count()
+    # 获取CPU物理个数
+    cpu_counts = psutil.cpu_count(logical=False)
+    # 获取CPU使用率
+    cpu_rate = psutil.cpu_percent()
+    print("CPU个数: {}".format(cpu_logical_counts) + " CPU使用率: {}%".format(cpu_rate))
+
+# 获取当前登录用户信息
+def User_info():
+    # 获取用户信息
+    # users = psutil.users()
+    # for user in users:
+    #     print("登录用户: {}".format(user.name) + " 登录IP信息: {}".format(user.host))
+    # 获取登录用户个数
+    users_count = len(psutil.users())
+    # 登录用户详情
+    users_list = ",".join(u.name for u in psutil.users())
+    print("当前有%s个用户，分别是:%s" % (users_count,users_list)) 
+
 if __name__ == "__main__":
+    Uptime()
+    User_info()
     Disk_Use()
     Mem_Use()
+    Cpu_use()
