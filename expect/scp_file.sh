@@ -7,7 +7,7 @@ REMOTE_PASSWORD=$4
 DEST_PATH=$5
 
 expect <<EOF
-spawn scp -r ${SRC_PATH} ${REMOTE_USER}@${REMOTE}:${DEST_PATH}
+spawn /usr/bin/scp -r ${SRC_PATH} ${REMOTE_USER}@${REMOTE}:${DEST_PATH}
 expect {
     "*yes/no" { send "yes\n"; exp_continue }
     "*assword" { send "${REMOTE_PASSWORD}t\n" }
