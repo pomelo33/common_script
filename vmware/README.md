@@ -30,6 +30,9 @@
 脚本描述: vCenter Vlan添加端口
 
 #### 脚本运行样例
-````
+```
 install_vcenter.ps1 example.csv
 ```
+
+##### collect_info.ps1
+脚本描述：vCenter部分采集信息数据格式化
